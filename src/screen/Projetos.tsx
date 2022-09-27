@@ -1,7 +1,8 @@
 import { StyleSheet, FlatList, View, TouchableOpacity, Text} from 'react-native'
 import {Ionicons} from '@expo/vector-icons'
 import { useState } from 'react'
-import Projeto from '../componentes/Projeto'
+import Projeto from '../components/Projeto'
+import React from 'react'
 
 export default function Projetos({navigation}) {
 
@@ -13,7 +14,7 @@ export default function Projetos({navigation}) {
         res =>{return <View/>} 
     )
 
-    function renderProjeto(itens){
+    function renderProjeto(itens: any){
         return <Projeto data={itens} navigation={navigation}></Projeto>
     }
   
@@ -22,7 +23,7 @@ export default function Projetos({navigation}) {
             <FlatList
                 data={dados}
                 renderItem={renderProjeto}
-                keyExtractor={item => item.id}
+                keyExtractor={item => item}
             />
             <TouchableOpacity style={styles.botao} onPress={()=> navigation.navigate('Novo Projeto')}>
                 <Ionicons

@@ -2,6 +2,7 @@ import { StyleSheet, Text, TouchableOpacity,  TextInput, View} from 'react-nativ
 import { useState } from 'react';
 import {RadioButton} from 'react-native-paper'
 import {Ionicons} from '@expo/vector-icons'
+import React from 'react';
 
 export default function NovoProjeto({navigation}) {
     const [status, setStatus] = useState('inativo')
@@ -36,7 +37,7 @@ export default function NovoProjeto({navigation}) {
             <TextInput
                 style={styles.input}
                 placeholder='Digite o nome do novo projeto'
-                onChangeText={() => setNome()}
+                onChangeText={(prop) => setNome(prop)}
             />
             <Text style={styles.label}>status: </Text>
             <View style={styles.radioGroup}>

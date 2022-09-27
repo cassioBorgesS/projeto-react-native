@@ -1,7 +1,8 @@
+import React from 'react';
 import { StyleSheet, Text, TouchableOpacity,  View, } from 'react-native'
 
 export default function Projeto({data,navigation}) {
-    function statusCode(s){
+    function statusCode(s: boolean){
         if (s) {
             return 'ativo'
         } else {

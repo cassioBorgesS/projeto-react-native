@@ -1,6 +1,7 @@
 import { StyleSheet, Text, TouchableOpacity,  View} from 'react-native'
 import {Ionicons} from '@expo/vector-icons'
 import { useState } from 'react';
+import React from 'react';
 
 export default function Item({navigation, data}) {
     const [dataItem, setData] = useState(new Date(data.item.data))
