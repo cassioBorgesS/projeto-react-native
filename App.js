@@ -9,7 +9,7 @@ export default function App() {
   return (
     <NavigationContainer>
         <Stack.Navigator>
-            <Stack.Screen name='Projetos' component={Projetos}/>
+            <Stack.Screen name='Projetos' component={Projetos/>
             <Stack.Screen name='Itens' component={Itens}/>
             <Stack.Screen name='Novo Projeto' component={NovoProjeto}/>
         </Stack.Navigator>
