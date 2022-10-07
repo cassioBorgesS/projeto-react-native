@@ -1,21 +1,28 @@
-import { StyleSheet, FlatList, View, TouchableOpacity, Text} from 'react-native'
-import {Ionicons} from '@expo/vector-icons'
-import { useState } from 'react'
-import Projeto from '../components/Projeto'
 import React from 'react'
+import { useState,useCallback } from 'react'
+import {FlatList, View, TouchableOpacity, RefreshControl} from 'react-native'
+import {Ionicons} from '@expo/vector-icons'
+import CardProjeto from '../components/CardProjeto'
+import {styles} from '../styles/Projetos'
+import {buscar} from '../data/Projeto'
+
+const wait = (timeout) => {
+    return new Promise(resolve => setTimeout(resolve, timeout));
+}
 
 export default function Projetos({navigation}) {
-
     const [dados, setDados] = useState([])
-    fetch('https://6330ad26cff0e7bf70e0551e.mockapi.io/projeto')
-    .then(res => res.json())
-    .then(data => setDados(data))
-    .catch(
-        res =>{return <View/>} 
-    )
+    const [refreshing, setRefreshing] = useState(false)
+
+    const onRefresh = useCallback(() => {
+        setRefreshing(true);
+        wait(2000).then(() => setRefreshing(false))
+    }, [])
+
+    buscar(setDados)
 
     function renderProjeto(itens: any){
-        return <Projeto data={itens} navigation={navigation}></Projeto>
+        return <CardProjeto data={itens} navigation={navigation}></CardProjeto>
     }
   
     return (
@@ -23,40 +30,21 @@ export default function Projetos({navigation}) {
             <FlatList
                 data={dados}
                 renderItem={renderProjeto}
-                keyExtractor={item => item}
+                keyExtractor={item => item.id}
+                refreshControl={
+                    <RefreshControl
+                        refreshing={refreshing}
+                        onRefresh={onRefresh}
+                    />
+                }
             />
-            <TouchableOpacity style={styles.botao} onPress={()=> navigation.navigate('Novo Projeto')}>
+            <TouchableOpacity style={styles.botao} onPress={()=> navigation.navigate('Criar e alterar projeto')}>
                 <Ionicons
-                    name='add-circle'
+                    name='add-outline'
                     color={'white'}
                     size={40}
                 /> 
-                <Text style={styles.textoBotao} >Novo projeto</Text> 
             </TouchableOpacity>
         </>
     );
-  }
-  
-  const styles = StyleSheet.create({
-    
-    botao:{
-        backgroundColor: '#2b0052',
-        color: 'white',
-        margin: 10,
-        borderColor: 'white',
-        borderWidth: 1,
-        borderRadius: 15,
-        padding: 10,
-        flexDirection: 'row',
-        justifyContent: 'center',
-        alignItems: 'center',
-        position: 'absolute',
-        bottom: 0,
-        right: 0,
-    },
-    textoBotao: {
-        color: 'white',
-        fontSize: 20
-    }
-  });
-  
+}

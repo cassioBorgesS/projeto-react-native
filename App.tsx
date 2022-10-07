@@ -1,8 +1,9 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { NavigationContainer } from '@react-navigation/native'
-import Projetos from './telas/Projetos'
-import Itens from './telas/Itens'
-import NovoProjeto from './telas/NovoProjeto'
+import React from 'react'
+import Projetos from './src/screen/Projetos'
+import Itens from './src/screen/Itens'
+import AlterarProjeto from './src/screen/AlterarProjeto'
 const Stack = createNativeStackNavigator()
 
 export default function App() {
@@ -11,7 +12,7 @@ export default function App() {
         <Stack.Navigator>
             <Stack.Screen name='Projetos' component={Projetos}/>
             <Stack.Screen name='Itens' component={Itens}/>
-            <Stack.Screen name='Novo Projeto' component={NovoProjeto}/>
+            <Stack.Screen name='Criar e alterar projeto' component={AlterarProjeto}/>
         </Stack.Navigator>
     </NavigationContainer>
   );
